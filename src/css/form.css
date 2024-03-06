@@ -1,0 +1,92 @@
+:root {
+    /* Color scheme */
+    --primary-color: #4A90E2;
+    --background-color: #f0f0f0;
+    --text-color: #333;
+    --error-color: #ff0000;
+    --disabled-background-color: grey;
+    --disabled-text-color: white;
+    --focus-outline-color: #4A90E2;
+
+    /* Typography */
+    --font-family: Arial, sans-serif;
+    --base-font-size: 1rem;
+    /* 16px */
+    --heading-font-size: 1.25rem;
+    /* 20px */
+    --error-font-size: 0.875rem;
+    /* 14px */
+
+    /* Grid and spacing */
+    --section-margin: 20px;
+    --input-margin-bottom: 10px;
+    --button-margin-bottom: 10px;
+    --form-padding: 10px;
+    --form-width: 90%;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.checkout-form__section {
+    margin-bottom: var(--section-margin);
+}
+
+.checkout-form__heading {
+    background-color: var(--background-color);
+    padding: var(--form-padding);
+    font-size: var(--heading-font-size);
+    margin-bottom: 10px;
+}
+
+.checkout-form__input,
+.checkout-form__select,
+.checkout-form__button,
+.checkout-form__checkbox {
+    display: block;
+    margin-bottom: var(--input-margin-bottom);
+    padding: var(--form-padding);
+    width: var(--form-width);
+    box-sizing: border-box;
+}
+
+.checkout-form__input:focus,
+.checkout-form__select:focus {
+    border-color: var(--focus-outline-color);
+    outline: none;
+}
+
+.checkout-form__button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.checkout-form__button:disabled {
+    background-color: var(--disabled-background-color);
+    color: var(--disabled-text-color);
+}
+
+.checkout-form__label--inline {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+:focus-visible {
+    outline: 2px solid var(--focus-outline-color);
+}
