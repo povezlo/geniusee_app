@@ -26,7 +26,7 @@
 
 .checkout-form label {
     display: block;
-    margin: var(--input-margin-bottom) 0 var(--form-padding);
+    margin: var(--section-margin) 0 var(--form-padding);
     font-size: var(--font-size-small);
 }
 
@@ -36,13 +36,12 @@
 .checkout-form select {
     width: 100%;
     padding: var(--padding-y);
-    margin-bottom: var(--input-margin-bottom);
     border: var(--border-1);
     border-radius: var(--border-radius-1);
 }
 
 .checkout-form input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: var(--form-padding);
 }
 
 .checkout-form button {
@@ -52,7 +51,7 @@
     border: none;
     border-radius: var(--border-radius-1);
     cursor: pointer;
-    transition: var(--transition-easy);
+    transition: var(--transition-background-color);
 }
 
 .checkout-form button:hover {
@@ -64,7 +63,17 @@
 .checkout-form button:hover {
     background-color: darken(var(--primary-color), 10%);
 }
+
 .error-message {
+    font-size: var(--error-font-size);
     color: var(--error-color);
     margin-top: var(--form-padding);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: var(--transition-ease-in-out);
+}
+
+.error-message.show {
+    opacity: 1;
+    transform: translateY(0);
 }

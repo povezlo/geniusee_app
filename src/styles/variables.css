@@ -19,7 +19,7 @@
     --font-size-small: .875rem;
     --heading-color: var(--primary-color);
     --heading-font-size: 1.25rem;
-    --error-font-size: 0.875rem;
+    --error-font-size: 0.7rem;
 
     /* Layout */
     --header-height: 4rem;
@@ -43,5 +43,6 @@
     --box-shadow-1: 0 0 .625rem rgba(0, 0, 0, 0.1);
 
     /* Animations */
-    --transition-easy: background-color 0.3s ease
+    --transition-background-color: background-color 0.3s ease;
+    --transition-ease-in-out: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
