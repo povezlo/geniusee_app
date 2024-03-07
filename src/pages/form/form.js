@@ -1,4 +1,3 @@
-// service.js (separate file)
 const validateEmail = (email) => {
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   return emailRegex.test(email);
@@ -17,24 +16,20 @@ const validateCVV = (cvv) => {
   return /^\d{3}$/.test(cvv);
 };
 
-// checkout-form.js
 const form = document.getElementById('checkoutForm');
 const submitBtn = document.getElementById('submitBtn');
 
-// Input masks
 const creditCardInput = document.getElementById('creditCard');
 const cvvInput = document.getElementById('cvv');
 const emailInput = document.getElementById('email');
 const phoneInput = document.getElementById('phone');
 
-// Inputs
 const firstNameInput = document.getElementById('firstName');
 const lastNameInput = document.getElementById('lastName');
 const countryInput = document.getElementById('country');
 const addressInput = document.getElementById('address');
 const termsAgreementInput = document.getElementById('termsAgreement');
 
-// Error messages
 const firstNameError = document.getElementById('firstNameError');
 const lastNameError = document.getElementById('lastNameError');
 const emailError = document.getElementById('emailError');
@@ -201,46 +196,29 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Disable submit button until form is valid
-const disableSubmitButton = () => {
-  submitBtn.disabled = true;
-  submitBtn.style.opacity = '0.5';
-  submitBtn.style.cursor = 'not-allowed';
-};
+// Handle input blur events
+const handleInputBlur = (event) => {
+  const input = event.target;
+  const inputId = input.id;
+  const errorElement = document.getElementById(`${inputId}Error`);
 
-const enableSubmitButton = () => {
-  submitBtn.disabled = false;
-  submitBtn.style.opacity = '1';
-  submitBtn.style.cursor = 'pointer';
-};
-
-// Disable submit button initially
-disableSubmitButton();
-
-// Validate form on input and enable/disable submit button
-const handleFormChange = () => {
-  const isPersonalInfoValid = validatePersonalInfo();
-  const isContactInfoValid = validateContactInfo();
-  const isPaymentDetailsValid = validatePaymentDetails();
-
-  if (isPersonalInfoValid && isContactInfoValid && isPaymentDetailsValid) {
-    enableSubmitButton();
+  if (input.validity.valueMissing) {
+    const errorMessage = `${input.labels[0].textContent.trim()} is required.`;
+    showErrorAnimation(errorElement, errorMessage);
   } else {
-    disableSubmitButton();
+    hideErrorAnimation(errorElement);
   }
 };
 
-// Add event listeners for input fields
-const inputs = Array.from(
-  form.querySelectorAll('input:not([type="checkbox"])')
-);
-inputs.forEach((input) => {
-  input.addEventListener('input', handleFormChange);
-  input.addEventListener('blur', handleFormChange);
-});
-
-countryInput.addEventListener('change', handleFormChange);
-termsAgreementInput.addEventListener('change', handleFormChange);
+// Add event listeners for input blur events
+firstNameInput.addEventListener('blur', handleInputBlur);
+lastNameInput.addEventListener('blur', handleInputBlur);
+emailInput.addEventListener('blur', handleInputBlur);
+phoneInput.addEventListener('blur', handleInputBlur);
+countryInput.addEventListener('blur', handleInputBlur);
+addressInput.addEventListener('blur', handleInputBlur);
+creditCardInput.addEventListener('blur', handleInputBlur);
+cvvInput.addEventListener('blur', handleInputBlur);
 
 // Form submission
 let isSubmitting = false;
@@ -274,27 +252,6 @@ form.addEventListener('submit', async (event) => {
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData);
     console.log('Form Values:', formValues);
-
-    // Clear form fields and error messages
-    firstNameInput.value = '';
-    lastNameInput.value = '';
-    emailInput.value = '';
-    phoneInput.value = '';
-    countryInput.value = '';
-    addressInput.value = '';
-    creditCardInput.value = '';
-    cvvInput.value = '';
-    termsAgreementInput.checked = false;
-
-    hideErrorAnimation(firstNameError);
-    hideErrorAnimation(lastNameError);
-    hideErrorAnimation(emailError);
-    hideErrorAnimation(phoneError);
-    hideErrorAnimation(countryError);
-    hideErrorAnimation(addressError);
-    hideErrorAnimation(creditCardError);
-    hideErrorAnimation(cvvError);
-    hideErrorAnimation(termsAgreementError);
 
     isSubmitting = false;
     submitBtn.disabled = false;
