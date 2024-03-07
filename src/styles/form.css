@@ -1,58 +1,70 @@
-.order-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+.checkout-form {
+    max-width: var(--form-width);
+    margin: var(--section-margin) auto;
+    padding: var(--section-margin);
     background-color: var(--background-color);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow-1);
 }
 
-.order-form fieldset {
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--border-color);
+.checkout-form #formHeading {
+    text-align: center;
+    margin-bottom: var(--section-margin);
+    padding-bottom: var(--section-margin);
 }
 
-.order-form legend {
+.checkout-form fieldset {
+    margin-bottom: var(--section-margin);
+    padding: var(--input-margin-bottom);
+    border-radius: var(--border-radius-1);
+    border: var(--border-1);
+}
+
+.checkout-form legend {
     font-weight: bold;
 }
 
-.order-form label {
+.checkout-form label {
     display: block;
-    margin: 10px 0 5px;
+    margin: var(--input-margin-bottom) 0 var(--form-padding);
     font-size: var(--font-size-small);
 }
 
-.order-form input[type="text"],
-.order-form input[type="email"],
-.order-form input[type="tel"],
-.order-form select {
+.checkout-form input[type="text"],
+.checkout-form input[type="email"],
+.checkout-form input[type="tel"],
+.checkout-form select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    padding: var(--padding-y);
+    margin-bottom: var(--input-margin-bottom);
+    border: var(--border-1);
+    border-radius: var(--border-radius-1);
 }
 
-.order-form input[type="checkbox"] {
+.checkout-form input[type="checkbox"] {
     margin-right: 5px;
 }
 
-.order-form button {
+.checkout-form button {
     background-color: var(--primary-color);
-    color: white;
-    padding: 10px 15px;
+    color: var(--disabled-text-color);
+    padding: var(--button-margin-bottom) var(--grid-gutter-width);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius-1);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: var(--transition-easy);
 }
 
-.order-form button:hover {
+.checkout-form button:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    border: var(--border-underline);
+}
+
+.checkout-form button:hover {
     background-color: darken(var(--primary-color), 10%);
 }
 .error-message {
-    color: red;
-    margin-top: 5px;
+    color: var(--error-color);
+    margin-top: var(--form-padding);
 }

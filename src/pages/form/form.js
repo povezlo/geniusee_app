@@ -1,21 +1,23 @@
-// src/form.js
 import ValidationService from '../../services/ValidationService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const orderForm = document.getElementById('orderForm');
+  const orderForm = document.getElementById('#checkoutForm');
   setupInputMasks();
   setupValidation();
+  console.log('form');
 
   orderForm.addEventListener('submit', async function (event) {
+    console.log('form', event.target);
     event.preventDefault();
     clearPreviousErrors();
 
     let isValid = await validateForm();
 
     if (isValid) {
-      console.log('Form is valid, processing form data...');
-      // Здесь код для отправки формы
-      alert('Form Submitted Successfully!');
+      const formData = new FormData(form);
+      const formObject = Object.fromEntries(formData.entries());
+
+      console.log('send data', formObject);
     } else {
       // Прокрутка к первому невалидному полю
       document

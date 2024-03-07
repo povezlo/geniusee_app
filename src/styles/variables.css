@@ -24,16 +24,24 @@
     /* Layout */
     --header-height: 4rem;
     --footer-height: 4rem;
+    --form-width: 40rem;
+
     --grid-gutter-width: 1rem;
     --padding-y: .5rem;
     --margin-y: .5rem;
     --section-margin: 1.5rem;
-    --input-margin-bottom: .6rem;
-    --button-margin-bottom: .6rem;
-    --form-padding: .7rem;
-    --form-width: 90%;
+    --input-margin-bottom: .625rem;
+    --button-margin-bottom: .625rem;
+    --form-padding: .375rem;
 
     /* Borders */
     --border-1: .125rem solid var(--border-color);
+    --border-1: .125rem solid var(--border-color);
     --border-underline: .125rem solid var(--primary-color);
+    --border-radius-1: .25rem;
+    --border-radius-2: .5rem;
+    --box-shadow-1: 0 0 .625rem rgba(0, 0, 0, 0.1);
+
+    /* Animations */
+    --transition-easy: background-color 0.3s ease
 }

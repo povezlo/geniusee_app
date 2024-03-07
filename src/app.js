@@ -2,14 +2,14 @@ import { router, setActiveRoute } from './router.js';
 
 document.querySelector('#app').innerHTML = `
     <header>
-        <nav>
+        <nav aria-label="Main navigation">
             <ul>
                 <li><a href="/" data-link>Home</a></li>
                 <li><a href="/form" data-link>Form</a></li>
             </ul>
         </nav>
     </header>
-    <main id="main"></main>
+    <main id="main" role="main"></main>
     <footer>
         <p>© 2024 Geniusee App</p>
     </footer>

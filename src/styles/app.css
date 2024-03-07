@@ -31,7 +31,7 @@ footer {
   width: 100%;
   height: var(--footer-height);
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--disabled-text-color);
   line-height: var(--footer-height);
   text-align: center;
   position: fixed;
@@ -52,7 +52,7 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: var(--text-colorr);
+  color: var(--text-color);
 }
 
 nav ul li a.active {
