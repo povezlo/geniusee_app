@@ -21,6 +21,7 @@
 .order-form label {
     display: block;
     margin: 10px 0 5px;
+    font-size: var(--font-size-small);
 }
 
 .order-form input[type="text"],
@@ -50,4 +51,8 @@
 
 .order-form button:hover {
     background-color: darken(var(--primary-color), 10%);
+}
+.error-message {
+    color: red;
+    margin-top: 5px;
 }

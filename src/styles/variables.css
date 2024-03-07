@@ -13,11 +13,6 @@
     --focus-outline-color: #4A90E2;
 
     /* Typography */
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
     --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     --font-size-base: 1rem;
     --font-size-large: 1.25rem;
@@ -29,7 +24,6 @@
     /* Layout */
     --header-height: 4rem;
     --footer-height: 4rem;
-
     --grid-gutter-width: 1rem;
     --padding-y: .5rem;
     --margin-y: .5rem;
@@ -38,4 +32,8 @@
     --button-margin-bottom: .6rem;
     --form-padding: .7rem;
     --form-width: 90%;
+
+    /* Borders */
+    --border-1: .125rem solid var(--border-color);
+    --border-underline: .125rem solid var(--primary-color);
 }

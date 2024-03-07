@@ -7,12 +7,6 @@ body {
   padding: var(--padding-y) 0;
 }
 
-.container {
-  max-width: 75rem;
-  margin: 0 auto;
-  padding: 0 var(--grid-gutter-width);
-}
-
 header {
   width: 100%;
   height: var(--header-height);
@@ -23,7 +17,7 @@ header {
   top: 0;
   left: 0;
   z-index: 1000;
-  border: 2px solid var(--border-color);
+  border-bottom: var(--border-1);
 }
 
 main {
@@ -59,6 +53,11 @@ nav ul li {
 nav ul li a {
   text-decoration: none;
   color: var(--text-colorr);
+}
+
+nav ul li a.active {
+  border-bottom: var(--border-underline);
+  padding-bottom: var(--form-padding);
 }
 
 @media (prefers-color-scheme: light) {
