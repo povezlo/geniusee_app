@@ -1,3 +1,12 @@
-@import url('');
-@import url('/css1.css');
-@import url('/css1.css');
+@import './reset.css';
+@import './normalize.css';
+@import 'variables.css';
+@import './app.css';
+@import './form.css';
+
+body,
+html,
+#app {
+    height: 100%;
+    margin: 0;
+}

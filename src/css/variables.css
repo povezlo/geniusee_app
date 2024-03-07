@@ -1,0 +1,41 @@
+:root {
+    /* Color palette */
+    color-scheme: light dark;
+
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --border-color: #dee2e6;
+    --error-color: #ff0000;
+    --disabled-background-color: grey;
+    --disabled-text-color: white;
+    --focus-outline-color: #4A90E2;
+
+    /* Typography */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --font-size-base: 1rem;
+    --font-size-large: 1.25rem;
+    --font-size-small: .875rem;
+    --heading-color: var(--primary-color);
+    --heading-font-size: 1.25rem;
+    --error-font-size: 0.875rem;
+
+    /* Layout */
+    --header-height: 4rem;
+    --footer-height: 4rem;
+
+    --grid-gutter-width: 1rem;
+    --padding-y: .5rem;
+    --margin-y: .5rem;
+    --section-margin: 1.5rem;
+    --input-margin-bottom: .6rem;
+    --button-margin-bottom: .6rem;
+    --form-padding: .7rem;
+    --form-width: 90%;
+}
