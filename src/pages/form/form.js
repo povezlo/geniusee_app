@@ -2,9 +2,9 @@ import Validator from '../../services/validator.service.js';
 import FormValidationService from '../../services/form-validation.service.js';
 import InputMaskService from '../../services/input-mask.service.js';
 import StickyHeadingsService from '../../services/sticky-headings.service.js';
+import ErrorMessageService from '../../services/error-message.service.js';
 
 const validationService = new FormValidationService(new Validator());
-const inputMaskService = new InputMaskService();
 const stickyHeadingsService = new StickyHeadingsService();
 
 const form = document.getElementById('checkoutForm');
@@ -19,13 +19,13 @@ stickyHeadingsService.init();
 form.addEventListener('input', (event) => {
   const { target } = event;
   if (target.id === 'creditCard') {
-    inputMaskService.maskCreditCard(target);
+    InputMaskService.maskCreditCard(target);
   } else if (target.id === 'cvv') {
-    inputMaskService.maskCVV(target);
+    InputMaskService.maskCVV(target);
   } else if (target.id === 'email') {
-    inputMaskService.maskEmail(target);
+    InputMaskService.maskEmail(target);
   } else if (target.id === 'phone') {
-    inputMaskService.maskPhoneNumber(target);
+    InputMaskService.maskPhoneNumber(target);
   }
 });
 
@@ -38,9 +38,9 @@ form.addEventListener(
       const errorElement = document.getElementById(`${target.id}`);
       if (target.validity.valueMissing) {
         const errorMessage = `${target.labels[0].textContent.trim()} is required.`;
-        validationService.displayErrorMessage(errorElement, errorMessage);
+        ErrorMessageService.displayErrorMessage(errorElement, errorMessage);
       } else {
-        validationService.removeErrorMessage(errorElement);
+        ErrorMessageService.removeErrorMessage(errorElement);
       }
     }
   },

@@ -1,3 +1,5 @@
+import ErrorMessageService from './error-message.service.js';
+
 class FormService {
   constructor(validationService) {
     this.validationService = validationService;
@@ -7,19 +9,19 @@ class FormService {
     let isValid = true;
 
     // Remove any existing error messages
-    this.removeErrorMessage(firstNameInput);
-    this.removeErrorMessage(lastNameInput);
+    ErrorMessageService.removeErrorMessage(firstNameInput);
+    ErrorMessageService.removeErrorMessage(lastNameInput);
 
     if (!firstNameInput.value.trim()) {
       const errorMessage = 'First name is required.';
       isValid = false;
-      this.displayErrorMessage(firstNameInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(firstNameInput, errorMessage);
     }
 
     if (!lastNameInput.value.trim()) {
       const errorMessage = 'Last name is required.';
       isValid = false;
-      this.displayErrorMessage(lastNameInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(lastNameInput, errorMessage);
     }
 
     return isValid;
@@ -34,10 +36,10 @@ class FormService {
     let isValid = true;
 
     // Remove any existing error messages
-    this.removeErrorMessage(emailInput);
-    this.removeErrorMessage(phoneInput);
-    this.removeErrorMessage(countryInput);
-    this.removeErrorMessage(addressInput);
+    ErrorMessageService.removeErrorMessage(emailInput);
+    ErrorMessageService.removeErrorMessage(phoneInput);
+    ErrorMessageService.removeErrorMessage(countryInput);
+    ErrorMessageService.removeErrorMessage(addressInput);
 
     if (
       emailInput.value &&
@@ -45,7 +47,7 @@ class FormService {
     ) {
       const errorMessage = 'Invalid email address.';
       isValid = false;
-      this.displayErrorMessage(emailInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(emailInput, errorMessage);
     }
 
     const phoneNumbers = phoneInput.value
@@ -57,13 +59,13 @@ class FormService {
       const errorMessage =
         'Please provide at least one and at most three phone numbers.';
       isValid = false;
-      this.displayErrorMessage(phoneInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(phoneInput, errorMessage);
     } else {
       for (const phone of phoneNumbers) {
         if (!this.validationService.validatePhoneNumber(phone)) {
           const errorMessage = 'Invalid phone number.';
           isValid = false;
-          this.displayErrorMessage(phoneInput, errorMessage);
+          ErrorMessageService.displayErrorMessage(phoneInput, errorMessage);
           break;
         }
       }
@@ -72,13 +74,13 @@ class FormService {
     if (!countryInput.value) {
       const errorMessage = 'Please select a country.';
       isValid = false;
-      this.displayErrorMessage(countryInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(countryInput, errorMessage);
     }
 
     if (!addressInput.value.trim()) {
       const errorMessage = 'Address is required.';
       isValid = false;
-      this.displayErrorMessage(addressInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(addressInput, errorMessage);
     }
 
     // Async email validation
@@ -89,7 +91,7 @@ class FormService {
         } else {
           const errorMessage = 'Email address is not available.';
           isValid = false;
-          this.displayErrorMessage(emailInput, errorMessage);
+          ErrorMessageService.displayErrorMessage(emailInput, errorMessage);
         }
       }, 1000);
     });
@@ -103,9 +105,9 @@ class FormService {
     let isValid = true;
 
     // Remove any existing error messages
-    this.removeErrorMessage(creditCardInput);
-    this.removeErrorMessage(cvvInput);
-    this.removeErrorMessage(termsAgreementInput);
+    ErrorMessageService.removeErrorMessage(creditCardInput);
+    ErrorMessageService.removeErrorMessage(cvvInput);
+    ErrorMessageService.removeErrorMessage(termsAgreementInput);
 
     if (
       !this.validationService.validateCreditCard(
@@ -114,46 +116,25 @@ class FormService {
     ) {
       const errorMessage = 'Invalid credit card number.';
       isValid = false;
-      this.displayErrorMessage(creditCardInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(creditCardInput, errorMessage);
     }
 
     if (!this.validationService.validateCVV(cvvInput.value)) {
       const errorMessage = 'Invalid CVV code.';
       isValid = false;
-      this.displayErrorMessage(cvvInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(cvvInput, errorMessage);
     }
 
     if (!termsAgreementInput.checked) {
       const errorMessage = 'Please agree to the terms of use.';
       isValid = false;
-      this.displayErrorMessage(termsAgreementInput, errorMessage);
+      ErrorMessageService.displayErrorMessage(
+        termsAgreementInput,
+        errorMessage
+      );
     }
 
     return isValid;
-  }
-
-  removeErrorMessage(input) {
-    const errorElement = input.parentNode.querySelector('.error-message');
-    if (errorElement) {
-      errorElement.classList.remove('show');
-      errorElement.addEventListener('animationend', () => {
-        errorElement.remove();
-      });
-    }
-  }
-
-  displayErrorMessage(input, message) {
-    const errorElement = document.createElement('span');
-    errorElement.classList.add('error-message');
-    errorElement.setAttribute('role', 'alert');
-    errorElement.setAttribute('aria-live', 'polite');
-    errorElement.textContent = message;
-    input.insertAdjacentElement('afterend', errorElement);
-
-    // Add animation class after a short delay
-    setTimeout(() => {
-      errorElement.classList.add('show');
-    }, 10);
   }
 }
 

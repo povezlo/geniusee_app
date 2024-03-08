@@ -1,20 +1,20 @@
 class InputMaskService {
-  maskCreditCard(input) {
+  static maskCreditCard(input) {
     input.value = input.value
       .replace(/\D/g, '')
       .replace(/(.{4})/g, '$1 ')
       .trim();
   }
 
-  maskCVV(input) {
+  static maskCVV(input) {
     input.value = input.value.replace(/\D/g, '').slice(0, 3);
   }
 
-  maskEmail(input) {
+  static maskEmail(input) {
     input.value = input.value.trim();
   }
 
-  maskPhoneNumber(input) {
+  static maskPhoneNumber(input) {
     input.value = input.value
       .replace(/\D/g, '')
       .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
