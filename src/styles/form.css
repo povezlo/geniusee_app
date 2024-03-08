@@ -72,7 +72,31 @@ legend.sticky {
     background-color: darken(var(--primary-color), 10%);
 }
 
-.error-message {
+.checkout-form button {
+    margin-top: var(--form-padding);
+}
+
+.checkout-form #addPhoneFieldBtn {
+    color: var(--primary-color);
+    border: var(--border-underline);
+    background-color: var(--background-color);
+    cursor: pointer;
+    transition: var(--transition-background-color);
+}
+
+.checkout-form #addPhoneFieldBtn:hover {
+    color: var(--background-color);
+    background-color: var(--primary-color);
+}
+
+.checkout-form button:disabled, .checkout-form #addPhoneFieldBtn:disabled {
+    background-color: var(--disabled-background-color);
+    color: var(--disabled-text-color);
+    cursor: not-allowed;
+    border: none;
+}
+
+.checkout-form .error-message {
     font-size: var(--error-font-size);
     color: var(--error-color);
     margin-top: var(--form-padding);
@@ -81,7 +105,7 @@ legend.sticky {
     transition: var(--transition-ease-in-out);
 }
 
-.error-message.show {
+.checkout-form .error-message.show {
     opacity: 1;
     transform: translateY(0);
 }

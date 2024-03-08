@@ -6,7 +6,10 @@ const validationService = new FormValidationService(new Validator());
 
 const form = document.getElementById('checkoutForm');
 const submitBtn = document.getElementById('submitBtn');
+const phoneFieldsContainer = document.getElementById('phoneFieldsContainer');
+const addPhoneFieldBtn = document.getElementById('addPhoneFieldBtn');
 
+let phoneFieldCount = 1;
 let isSubmitting = false;
 
 // Event delegation for input masking
@@ -22,6 +25,21 @@ form.addEventListener('input', (event) => {
     InputMaskService.maskPhoneNumber(target);
   }
 });
+
+addPhoneFieldBtn.addEventListener('click', () => {
+  if (phoneFieldCount < 3) {
+    phoneFieldCount++;
+    const newPhoneField = document.createElement('div');
+    newPhoneField.innerHTML = `
+      <label for="phone${phoneFieldCount}">Phone Number:</label>
+      <input type="tel" id="phone${phoneFieldCount}" name="phone" required aria-required="true" aria-label="Phone Number" aria-describedby="phoneError">
+    `;
+    phoneFieldsContainer.appendChild(newPhoneField);
+    addPhoneFieldBtn.disabled = phoneFieldCount === 3;
+  }
+});
+
+addPhoneFieldBtn.disabled = false;
 
 // Event delegation for input blur validation
 form.addEventListener(
@@ -52,7 +70,9 @@ form.addEventListener('submit', async (event) => {
   const firstNameInput = document.getElementById('firstName');
   const lastNameInput = document.getElementById('lastName');
   const emailInput = document.getElementById('email');
-  const phoneInput = document.getElementById('phone');
+  const phoneInputs = Array.from(
+    document.querySelectorAll('input[name="phone"]')
+  );
   const countryInput = document.getElementById('country');
   const addressInput = document.getElementById('address');
   const creditCardInput = document.getElementById('creditCard');
@@ -65,7 +85,7 @@ form.addEventListener('submit', async (event) => {
   );
   const isContactInfoValid = await validationService.validateContactInfo(
     emailInput,
-    phoneInput,
+    phoneInputs,
     countryInput,
     addressInput
   );

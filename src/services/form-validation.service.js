@@ -28,7 +28,7 @@ class FormService {
 
   async validateContactInfo(
     emailInput,
-    phoneInput,
+    phoneInputs,
     countryInput,
     addressInput
   ) {
@@ -36,27 +36,25 @@ class FormService {
 
     // Remove any existing error messages
     this.removeErrorMessage(emailInput);
-    this.removeErrorMessage(phoneInput);
     this.removeErrorMessage(countryInput);
     this.removeErrorMessage(addressInput);
+    phoneInputs.forEach(this.removeErrorMessage.bind(this));
 
-    const phoneNumbers = phoneInput.value
-      .split(',')
-      .map((phone) => phone.trim())
+    const phoneNumbers = Array.from(phoneInputs)
+      .map((input) => input.value.trim())
       .filter((phone) => phone);
 
-    if (phoneNumbers.length < 1 || phoneNumbers.length > 3) {
-      const errorMessage =
-        'Please provide at least one and at most three phone numbers.';
+    if (phoneNumbers.length === 0) {
+      const errorMessage = 'At least one phone number is required.';
       isValid = false;
-      this.displayErrorMessage(phoneInput, errorMessage);
+      this.displayErrorMessage(phoneInputs[0], errorMessage);
     } else {
-      for (const phone of phoneNumbers) {
+      for (const [index, phone] of phoneNumbers.entries()) {
+        const phoneInput = phoneInputs[index];
         if (!this.validationService.validatePhoneNumber(phone)) {
           const errorMessage = 'Invalid phone number.';
           isValid = false;
           this.displayErrorMessage(phoneInput, errorMessage);
-          break;
         }
       }
     }
