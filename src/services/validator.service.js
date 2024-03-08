@@ -1,6 +1,6 @@
 class ValidationService {
   validateEmail(email) {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}(?!\.)/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 

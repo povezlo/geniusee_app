@@ -1,19 +1,13 @@
 import Validator from '../../services/validator.service.js';
 import FormValidationService from '../../services/form-validation.service.js';
 import InputMaskService from '../../services/input-mask.service.js';
-import StickyHeadingsService from '../../services/sticky-headings.service.js';
-import ErrorMessageService from '../../services/error-message.service.js';
 
 const validationService = new FormValidationService(new Validator());
-const stickyHeadingsService = new StickyHeadingsService();
 
 const form = document.getElementById('checkoutForm');
 const submitBtn = document.getElementById('submitBtn');
 
 let isSubmitting = false;
-
-// Init sticky headings
-stickyHeadingsService.init();
 
 // Event delegation for input masking
 form.addEventListener('input', (event) => {
@@ -38,9 +32,9 @@ form.addEventListener(
       const errorElement = document.getElementById(`${target.id}`);
       if (target.validity.valueMissing) {
         const errorMessage = `${target.labels[0].textContent.trim()} is required.`;
-        ErrorMessageService.displayErrorMessage(errorElement, errorMessage);
+        validationService.displayErrorMessage(errorElement, errorMessage);
       } else {
-        ErrorMessageService.removeErrorMessage(errorElement);
+        validationService.removeErrorMessage(errorElement);
       }
     }
   },
