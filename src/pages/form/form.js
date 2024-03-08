@@ -1,8 +1,10 @@
 import Validator from '../../services/validator.service.js';
 import FormValidationService from '../../services/form-validation.service.js';
 import InputMaskService from '../../services/input-mask.service.js';
+import StickyHeadingsService from '../../services/sticky-headings.service.js';
 
 const validationService = new FormValidationService(new Validator());
+const stickyHeadingsService = new StickyHeadingsService();
 
 const form = document.getElementById('checkoutForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -11,6 +13,8 @@ const addPhoneFieldBtn = document.getElementById('addPhoneFieldBtn');
 
 let phoneFieldCount = 1;
 let isSubmitting = false;
+
+stickyHeadingsService.init();
 
 // Event delegation for input masking
 form.addEventListener('input', (event) => {
