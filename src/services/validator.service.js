@@ -1,11 +1,11 @@
 class ValidationService {
   validateEmail(email) {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}(?!\.)/;
     return emailRegex.test(email);
   }
 
   validatePhoneNumber(phoneNumber) {
-    const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    const phoneRegex = /^(\+\d{1,3}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
     return phoneRegex.test(phoneNumber);
   }
 
@@ -14,7 +14,7 @@ class ValidationService {
   }
 
   validateCVV(cvv) {
-    return /^\d{3}$/.test(cvv);
+    return /^\d{3,4}$/.test(cvv);
   }
 }
 

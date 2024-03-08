@@ -24,6 +24,14 @@
     font-weight: bold;
 }
 
+legend.sticky {
+    position: sticky;
+    top: var(--header-height);
+    background-color: var(--background-color);
+    padding: var(--padding-y) 0;
+    z-index: 1;
+}
+
 .checkout-form label {
     display: block;
     margin: var(--section-margin) 0 var(--form-padding);

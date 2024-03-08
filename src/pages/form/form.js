@@ -1,33 +1,19 @@
 import Validator from '../../services/validator.service.js';
-import FormValidationService from '../../services/form-valitation.service.js';
+import FormValidationService from '../../services/form-validation.service.js';
 import InputMaskService from '../../services/input-mask.service.js';
+import StickyHeadingsService from '../../services/sticky-headings.service.js';
 
 const validationService = new FormValidationService(new Validator());
 const inputMaskService = new InputMaskService();
+const stickyHeadingsService = new StickyHeadingsService();
 
 const form = document.getElementById('checkoutForm');
 const submitBtn = document.getElementById('submitBtn');
 
-// Sticky headings
-const headings = document.querySelectorAll('legend');
-const sections = document.querySelectorAll('fieldset');
-const headerHeight = 64; // Height of the header in pixels
-
 let isSubmitting = false;
 
-window.addEventListener('scroll', () => {
-  sections.forEach((section, index) => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top < headerHeight && rect.bottom > headerHeight) {
-      headings[index].style.position = 'sticky';
-      headings[index].style.top = `${headerHeight}px`;
-      headings[index].style.backgroundColor = '#f2f2f2';
-    } else {
-      headings[index].style.position = 'static';
-      headings[index].style.backgroundColor = 'transparent';
-    }
-  });
-});
+// Init sticky headings
+stickyHeadingsService.init();
 
 // Event delegation for input masking
 form.addEventListener('input', (event) => {

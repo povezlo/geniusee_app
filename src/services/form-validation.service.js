@@ -135,17 +135,25 @@ class FormService {
   removeErrorMessage(input) {
     const errorElement = input.parentNode.querySelector('.error-message');
     if (errorElement) {
-      errorElement.remove();
+      errorElement.classList.remove('show');
+      errorElement.addEventListener('animationend', () => {
+        errorElement.remove();
+      });
     }
   }
 
   displayErrorMessage(input, message) {
     const errorElement = document.createElement('span');
-    errorElement.classList.add('error-message', 'show');
+    errorElement.classList.add('error-message');
     errorElement.setAttribute('role', 'alert');
     errorElement.setAttribute('aria-live', 'polite');
     errorElement.textContent = message;
     input.insertAdjacentElement('afterend', errorElement);
+
+    // Add animation class after a short delay
+    setTimeout(() => {
+      errorElement.classList.add('show');
+    }, 10);
   }
 }
 
