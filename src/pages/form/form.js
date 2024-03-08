@@ -1,9 +1,8 @@
-import ValidationService from '../../services/validation.service.js';
-import FormService from '../../services/form.service.js';
+import Validator from '../../services/validator.service.js';
+import FormValidationService from '../../services/form-valitation.service.js';
 import InputMaskService from '../../services/input-mask.service.js';
 
-const validationService = new ValidationService();
-const formService = new FormService(validationService);
+const validationService = new FormValidationService(new Validator());
 const inputMaskService = new InputMaskService();
 
 const form = document.getElementById('checkoutForm');
@@ -13,6 +12,8 @@ const submitBtn = document.getElementById('submitBtn');
 const headings = document.querySelectorAll('legend');
 const sections = document.querySelectorAll('fieldset');
 const headerHeight = 64; // Height of the header in pixels
+
+let isSubmitting = false;
 
 window.addEventListener('scroll', () => {
   sections.forEach((section, index) => {
@@ -48,13 +49,12 @@ form.addEventListener(
   (event) => {
     const { target } = event;
     if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
-      const errorElement = document.getElementById(`${target.id}Error`);
+      const errorElement = document.getElementById(`${target.id}`);
       if (target.validity.valueMissing) {
         const errorMessage = `${target.labels[0].textContent.trim()} is required.`;
-        errorElement.textContent = errorMessage;
-        errorElement.classList.add('show');
+        validationService.displayErrorMessage(errorElement, errorMessage);
       } else {
-        errorElement.classList.remove('show');
+        validationService.removeErrorMessage(errorElement);
       }
     }
   },
@@ -79,17 +79,17 @@ form.addEventListener('submit', async (event) => {
   const cvvInput = document.getElementById('cvv');
   const termsAgreementInput = document.getElementById('termsAgreement');
 
-  const isPersonalInfoValid = formService.validatePersonalInfo(
+  const isPersonalInfoValid = validationService.validatePersonalInfo(
     firstNameInput,
     lastNameInput
   );
-  const isContactInfoValid = await formService.validateContactInfo(
+  const isContactInfoValid = await validationService.validateContactInfo(
     emailInput,
     phoneInput,
     countryInput,
     addressInput
   );
-  const isPaymentDetailsValid = formService.validatePaymentDetails(
+  const isPaymentDetailsValid = validationService.validatePaymentDetails(
     creditCardInput,
     cvvInput,
     termsAgreementInput
@@ -128,5 +128,3 @@ form.addEventListener('submit', async (event) => {
     }
   }
 });
-
-let isSubmitting = false;
