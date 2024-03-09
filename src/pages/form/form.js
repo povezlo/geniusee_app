@@ -25,7 +25,7 @@ form.addEventListener('input', (event) => {
     InputMaskService.maskCVV(target);
   } else if (target.id === 'email') {
     InputMaskService.maskEmail(target);
-  } else if (target.id === 'phone') {
+  } else if (target.name === 'phone') {
     InputMaskService.maskPhoneNumber(target);
   }
 });
