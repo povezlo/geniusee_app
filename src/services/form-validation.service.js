@@ -79,6 +79,14 @@ class FormService {
         const errorMessage = 'Invalid email address.';
         isValid = false;
         this.displayErrorMessage(emailInput, errorMessage);
+      } else {
+        // Perform asynchronous email validation
+        const isEmailValid = await this.validateEmailAsync(emailInput.value);
+        if (!isEmailValid) {
+          const errorMessage = 'Email address is not valid.';
+          isValid = false;
+          this.displayErrorMessage(emailInput, errorMessage);
+        }
       }
     }
 
@@ -156,6 +164,22 @@ class FormService {
         delete this.errorMessages[id];
       });
     }
+  }
+
+  async validateEmailAsync(email) {
+    // Mock async validation for development purposes
+    const mockValidationPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const shouldResolve = Math.random() < 0.75;
+        if (shouldResolve) {
+          resolve();
+        } else {
+          reject(new Error('Email validation failed'));
+        }
+      }, 1000);
+    });
+
+    return mockValidationPromise;
   }
 }
 

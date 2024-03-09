@@ -24,7 +24,7 @@
     font-weight: bold;
 }
 
-legend.sticky {
+.sticky-header {
     position: sticky;
     top: var(--header-height);
     background-color: var(--background-color);
@@ -53,27 +53,20 @@ legend.sticky {
 }
 
 .checkout-form button {
-    background-color: var(--primary-color);
-    color: var(--disabled-text-color);
+    margin-top: var(--form-padding);
     padding: var(--button-margin-bottom) var(--grid-gutter-width);
     border: none;
     border-radius: var(--border-radius-1);
-    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--disabled-text-color);
     transition: var(--transition-background-color);
+    cursor: pointer;
 }
 
-.checkout-form button:hover {
-    background-color: var(--background-color);
-    color: var(--primary-color);
-    border: var(--border-underline);
-}
-
-.checkout-form button:hover {
+.checkout-form button:hover:not(:disabled) {
     background-color: darken(var(--primary-color), 10%);
-}
-
-.checkout-form button {
-    margin-top: var(--form-padding);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
 .checkout-form #addPhoneFieldBtn {
@@ -84,12 +77,13 @@ legend.sticky {
     transition: var(--transition-background-color);
 }
 
-.checkout-form #addPhoneFieldBtn:hover {
+.checkout-form #addPhoneFieldBtn:hover:not(:disabled) {
     color: var(--background-color);
     background-color: var(--primary-color);
 }
 
-.checkout-form button:disabled, .checkout-form #addPhoneFieldBtn:disabled {
+.checkout-form button:disabled,
+.checkout-form #addPhoneFieldBtn:disabled {
     background-color: var(--disabled-background-color);
     color: var(--disabled-text-color);
     cursor: not-allowed;
@@ -108,4 +102,30 @@ legend.sticky {
 .checkout-form .error-message.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Accessibility Styles */
+.checkout-form input:focus,
+.checkout-form select:focus {
+    outline: 1px solid var(--primary-color);
+}
+
+.checkout-form button:focus {
+    outline: 1px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+.checkout-form a:focus {
+    outline: 1px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+/* Keyboard Navigation Styles */
+.checkout-form *:focus {
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+.checkout-form input[type="checkbox"]:focus+label {
+    outline: 1px solid var(--primary-color);
+    outline-offset: 1px;
 }

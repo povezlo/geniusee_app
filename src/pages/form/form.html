@@ -1,27 +1,40 @@
 <form id="checkoutForm" class="checkout-form" aria-labelledby="formHeading" novalidate>
-    <h2 id="formHeading">Checkout Form</h2>
+    <h1 id="formHeading">Checkout Form</h1>
 
     <fieldset aria-labelledby="personalInfoHeading">
-        <legend id="personalInfoHeading">Personal Information</legend>
+        <div class="sticky-header">
+            <legend id="personalInfoHeading">Personal Information</legend>
+        </div>
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required aria-required="true" aria-label="First Name" aria-describedby="firstnameError">
+        <input type="text" id="firstName" name="firstName" required aria-required="true" aria-label="First Name"
+            aria-describedby="firstnameError" pattern="[\p{L}\s]+">
+        <span id="firstNameError" class="error-message" aria-live="polite"></span>
+
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required aria-required="true" aria-label="Last Name" aria-describedby="lastnameError">
+        <input type="text" id="lastName" name="lastName" required aria-required="true" aria-label="Last Name"
+            aria-describedby="lastnameError" pattern="[\p{L}\s]+">
+        <span id="lastNameError" class="error-message" aria-live="polite"></span>
     </fieldset>
 
     <fieldset aria-labelledby="contactInfoHeading">
-        <legend id="contactInfoHeading">Contact Information</legend>
+        <div class="sticky-header">
+            <legend id="contactInfoHeading">Contact Information</legend>
+        </div>
         <label for="email">Email for Receipt (optional):</label>
-        <input type="email" id="email" name="email" aria-label="Email for Receipt" aria-describedby="emailError">
-        
+        <input type="email" id="email" name="email" aria-required="false" aria-label="Email for Receipt" aria-describedby="emailError">
+        <span id="emailError" class="error-message" aria-live="polite"></span>
+
         <div id="phoneFieldsContainer">
             <label for="phone1">Phone Number:</label>
-            <input type="tel" id="phone1" name="phone" required aria-required="true" aria-label="Phone Number" aria-describedby="phoneError">
+            <input type="tel" id="phone" name="phone" required aria-required="true" aria-label="Phone Number"
+                aria-describedby="phoneError" pattern="^\+?\d{1,2}?[-\s]?\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$">
+            <span id="phoneError" class="error-message" aria-live="polite"></span>
         </div>
-        <button type="button" id="addPhoneFieldBtn" disabled>+ Add Phone Number</button>
+        <button type="button" id="addPhoneFieldBtn">+ Add Phone Number</button>
 
         <label for="country">Country:</label>
-        <select id="country" name="country" required aria-required="true" aria-label="Country" aria-describedby="countryError">
+        <select id="country" name="country" required aria-required="true" aria-label="Country"
+            aria-describedby="countryError">
             <option value="">Select a country</option>
             <option value="US">United States</option>
             <option value="CA">Canada</option>
@@ -29,21 +42,31 @@
             <option value="UA">Ukraine</option>
             <option value="DE">Germany</option>
         </select>
+        <span id="countryError" class="error-message" aria-live="polite"></span>
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required aria-required="true" aria-label="Address" aria-describedby="addressError">
+        <input type="text" id="address" name="address" required aria-required="true" aria-label="Address"
+            aria-describedby="addressError">
+        <span id="addressError" class="error-message" aria-live="polite"></span>
     </fieldset>
 
     <fieldset aria-labelledby="paymentInfoHeading">
-        <legend id="paymentInfoHeading">Payment Details</legend>
+        <div class="sticky-header">
+            <legend id="paymentInfoHeading">Payment Details</legend>
+        </div>
         <label for="creditCard">Credit Card Number:</label>
-        <input type="text" id="creditCard" name="creditCard" required aria-required="true" aria-label="Credit Card Number"  aria-describedby="creditCardError">
+        <input type="text" id="creditCard" name="creditCard" required aria-required="true"
+            aria-label="Credit Card Number" aria-describedby="creditCardError" pattern="^(\d{4}[-\s]?){3}\d{4}$">
+        <span id="creditCardError" class="error-message" aria-live="polite"></span>
         <label for="cvv">CVV2 Code:</label>
-        <input type="text" id="cvv" name="cvv" autocomplete="cvv" required aria-required="true" aria-label="CVV2 Code"  aria-describedby="cvvError">
+        <input type="text" id="cvv" name="cvv" autocomplete="cc-csc" required aria-required="true"
+            aria-label="CVV2 Code" aria-describedby="cvvError" pattern="^\d{3}$" minlength="3" maxlength="3">
+        <span id="cvvError" class="error-message" aria-live="polite"></span>
         <label>
             <input type="checkbox" id="termsAgreement" name="termsAgreement" required aria-required="true"
-                aria-label="I agree to the terms of use" aria-describedby="termsAgreedError">
-            I agree to the <a href="#" target="_blank">terms of use</a>
+                aria-label="I agree to the terms of use" aria-describedby="termsAgreementError">
+            I agree to the <a href="#" target="_blank" rel="noopener noreferrer">terms of use</a>
         </label>
+        <span id="termsAgreementError" class="error-message" aria-live="polite"></span>
     </fieldset>
 
     <button type="submit" id="submitBtn">Submit</button>
