@@ -5,20 +5,22 @@ import {
   scrollToInvalidField,
   maskInputs,
   showLoadingState,
-  AsyncEmailValidate,
+  asyncEmailValidate,
 } from './utils.js';
 
 const form = document.getElementById('checkoutForm');
+const phoneFieldsContainer = document.getElementById('phoneFieldsContainer');
 const addPhoneFieldBtn = document.getElementById('addPhoneFieldBtn');
 
-let isSubmitting = false;
-
 maskInputs();
-addPhoneFieldBtn.addEventListener('click', addPhoneField);
+
+addPhoneFieldBtn.addEventListener('click', () =>
+  addPhoneField(phoneFieldsContainer)
+);
 
 form.querySelectorAll('input, select').forEach((field) => {
   field.addEventListener('blur', () =>
-    field.name === 'email' ? AsyncEmailValidate(field) : validateForm(field)
+    field.name === 'email' ? asyncEmailValidate(field) : validateForm(field)
   );
 });
 

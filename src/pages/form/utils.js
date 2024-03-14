@@ -1,4 +1,3 @@
-// utils.js
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const creditCardRegex = /^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$/;
 const cvvRegex = /^[0-9]{3}$/;
@@ -13,7 +12,6 @@ const errorMessages = {
 };
 
 const MAX_NUMBER_PHONE_FIELDS = 3;
-let phoneFieldCount = 1;
 
 export function validateForm(field, isSubmitting = false) {
   let isFormValid = true;
@@ -24,26 +22,10 @@ export function validateForm(field, isSubmitting = false) {
 
   fields.forEach((field) => {
     const errorSpan = form.querySelector(`#${field.id}Error`);
-    if (isRequiredField(field)) {
-      showError(errorSpan, errorMessages.required);
-      isFormValid = false;
-    } else if (field.type === 'checkbox' && !field.checked) {
-      showError(errorSpan, errorMessages.required);
-      isFormValid = false;
-    } else if (field.name === 'phone' && !phoneRegex.test(field.value)) {
-      if (!field.required && !field.value.trim()) {
-        return;
-      }
-      showError(errorSpan, errorMessages.phone);
-      isFormValid = false;
-    } else if (
-      field.name === 'creditCard' &&
-      !creditCardRegex.test(field.value)
-    ) {
-      showError(errorSpan, errorMessages.creditCard);
-      isFormValid = false;
-    } else if (field.name === 'cvv' && !cvvRegex.test(field.value)) {
-      showError(errorSpan, errorMessages.cvv);
+    const validationResult = validateField(field);
+
+    if (!validationResult.valid) {
+      showError(errorSpan, validationResult.message);
       isFormValid = false;
     } else {
       clearError(errorSpan);
@@ -51,6 +33,33 @@ export function validateForm(field, isSubmitting = false) {
   });
 
   return isFormValid;
+}
+
+function validateField(field) {
+  if (isRequiredField(field)) {
+    return { valid: false, message: errorMessages.required };
+  }
+
+  if (field.type === 'checkbox' && !field.checked) {
+    return { valid: false, message: errorMessages.required };
+  }
+
+  if (field.name === 'phone' && !phoneRegex.test(field.value)) {
+    if (!field.required && !field.value.trim()) {
+      return { valid: true, message: '' };
+    }
+    return { valid: false, message: errorMessages.phone };
+  }
+
+  if (field.name === 'creditCard' && !creditCardRegex.test(field.value)) {
+    return { valid: false, message: errorMessages.creditCard };
+  }
+
+  if (field.name === 'cvv' && !cvvRegex.test(field.value)) {
+    return { valid: false, message: errorMessages.cvv };
+  }
+
+  return { valid: true, message: '' };
 }
 
 function showError(errorSpan, message) {
@@ -77,39 +86,44 @@ export function mockFormSubmit(formValues) {
   });
 }
 
-export function addPhoneField() {
-  const phoneFieldsContainer = document.getElementById('phoneFieldsContainer');
+export function addPhoneField(phoneFieldsContainer) {
+  const phoneFieldCount = phoneFieldsContainer.querySelectorAll(
+    'input[name="phone"]'
+  ).length;
 
   if (phoneFieldCount < MAX_NUMBER_PHONE_FIELDS) {
-    phoneFieldCount++;
-
     const inputField = document.createElement('input');
     inputField.type = 'tel';
     inputField.name = 'phone';
     inputField.required = false;
     inputField.setAttribute('aria-required', 'false');
     inputField.setAttribute('aria-label', 'Phone Number');
-    inputField.setAttribute('aria-describedby', `phone${phoneFieldCount}Error`);
+    inputField.setAttribute(
+      'aria-describedby',
+      `phone${phoneFieldCount + 1}Error`
+    );
     inputField.setAttribute(
       'pattern',
-      '^(+?d{1,2}?[-s]?)?(?d{3})?[-s]?d{3}[-s]?d{4}$'
+      '^(+?\\d{1,2}?[-\\s]?)?(?:\\d{3})?[-\\s]?\\d{3}[-\\s]?\\d{4}$'
     );
-    inputField.id = `phone${phoneFieldCount}`;
+    inputField.id = `phone${phoneFieldCount + 1}`;
 
     const label = document.createElement('label');
-    label.textContent = `Phone Number ${phoneFieldCount}:`;
-    label.htmlFor = `phone${phoneFieldCount}`;
+    label.textContent = `Phone Number ${phoneFieldCount + 1}:`;
+    label.htmlFor = `phone${phoneFieldCount + 1}`;
 
     const errorSpan = document.createElement('span');
     errorSpan.classList.add('error-message');
-    errorSpan.id = `phone${phoneFieldCount}Error`;
+    errorSpan.id = `phone${phoneFieldCount + 1}Error`;
     errorSpan.setAttribute('aria-live', 'polite');
 
     phoneFieldsContainer.appendChild(label);
     phoneFieldsContainer.appendChild(inputField);
     phoneFieldsContainer.appendChild(errorSpan);
 
-    addPhoneFieldBtn.disabled = phoneFieldCount === MAX_NUMBER_PHONE_FIELDS;
+    const addPhoneFieldBtn =
+      phoneFieldsContainer.parentElement.querySelector('#addPhoneFieldBtn');
+    addPhoneFieldBtn.disabled = phoneFieldCount === MAX_NUMBER_PHONE_FIELDS - 1;
 
     inputField.addEventListener('blur', () => validateForm(inputField));
     maskInputs([inputField]);
@@ -167,7 +181,7 @@ export function showLoadingState(isLoading) {
   }
 }
 
-export async function AsyncEmailValidate(field) {
+export async function asyncEmailValidate(field) {
   const emailFieldValue = field.value.trim();
   const emailErrorSpan = document.getElementById('emailError');
 
