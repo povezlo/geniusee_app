@@ -6,7 +6,7 @@ import {
   maskInputs,
   showLoadingState,
   asyncEmailValidate,
-} from './utils.js';
+} from '../../services/form.service.js';
 
 const form = document.getElementById('checkoutForm');
 const phoneFieldsContainer = document.getElementById('phoneFieldsContainer');

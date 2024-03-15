@@ -1,3 +1,5 @@
+import { Mask } from './masks.js';
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const creditCardRegex = /^(\d{4})\s?(\d{4})\s?(\d{4})\s?(\d{4})$/;
 const cvvRegex = /^[0-9]{3}$/;
@@ -36,7 +38,7 @@ export function validateForm(field, isSubmitting = false) {
 }
 
 function validateField(field) {
-  if (isRequiredField(field)) {
+  if (field.required && !field.value.trim()) {
     return { valid: false, message: errorMessages.required };
   }
 
@@ -76,14 +78,6 @@ function clearError(errorSpan) {
   }
   errorSpan.textContent = '';
   errorSpan.classList.remove('show');
-}
-
-export function mockFormSubmit(formValues) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(formValues);
-    }, 1000);
-  });
 }
 
 export function addPhoneField(phoneFieldsContainer) {
@@ -147,25 +141,13 @@ export function maskInputs(inputs = null) {
     );
   fields.forEach((field) => {
     if (field.type === 'tel') {
-      field.addEventListener('input', () => {
-        field.value = field.value
-          .replace(/\D/g, '')
-          .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-      });
+      field.addEventListener('input', () => Mask.phone(field));
     } else if (field.type === 'email') {
-      field.addEventListener('input', () => {
-        field.value = field.value.toLowerCase().trim();
-      });
+      field.addEventListener('input', () => Mask.email(field));
     } else if (field.name === 'creditCard') {
-      field.addEventListener('input', () => {
-        field.value = field.value
-          .replace(/\D/g, '')
-          .replace(/(\d{4})(?=\d)/g, '$1 ');
-      });
+      field.addEventListener('input', () => Mask.creditCard(field));
     } else if (field.name === 'cvv') {
-      field.addEventListener('input', () => {
-        field.value = field.value.replace(/\D/g, '');
-      });
+      field.addEventListener('input', () => Mask.cvv(field));
     }
   });
 }
@@ -220,6 +202,10 @@ function mockAPICall() {
   });
 }
 
-function isRequiredField(field) {
-  return field.required && !field.value.trim();
+export function mockFormSubmit(formValues) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(formValues);
+    }, 1000);
+  });
 }
